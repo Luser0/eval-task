@@ -1,3 +1,4 @@
+import StockCard from "@/components/StockCard";
 import useFetchStocks from "@/hooks/useFetchStocks";
 import { TtickerInfo } from "@/types/TtickerInfo";
 import { TtickersResJson } from "@/types/TtickersResJson";
@@ -73,16 +74,7 @@ export default function Home() {
       {tickers &&
         !rateLimitHit &&
         tickers.map((ticker: TtickerInfo, idx) => {
-          return (
-            <a
-              key={idx}
-              href={`/${ticker.ticker}`}
-              className="p-4 border-2 border-black  bg-slate-600 rounded-md"
-            >
-              <p>{ticker.name}</p>
-              <p>{ticker.ticker}</p>
-            </a>
-          );
+          return <StockCard ticker={ticker} idx={idx} />;
         })}
 
       {error && <p>{error}</p>}
