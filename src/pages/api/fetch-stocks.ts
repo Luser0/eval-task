@@ -3,13 +3,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   let fetchUrl = "";
-  if (req.body.firstFetch) {
+  if (req.query.firstFetch) {
     fetchUrl =
       "https://api.polygon.io/v3/reference/tickers?market=stocks&exchange=XNAS&active=true&order=asc&limit=50&sort=name&apiKey=" +
       process.env.POLYGON_API_KEY;
   } else {
     fetchUrl =
-      req.body.nextTickerFetchUrl + "&apiKey=" + process.env.POLYGON_API_KEY;
+      req.query.nextTickerFetchUrl + "&apiKey=" + process.env.POLYGON_API_KEY;
   }
   try {
     const stocksRes = await fetch(fetchUrl);
