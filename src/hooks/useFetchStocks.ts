@@ -16,14 +16,13 @@ function useFetchStocks() {
     setError("");
 
     const options = {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstFetch: firstFetch,
-        nextTickerFetchUrl: nextTickerFetchUrl,
-      }),
     };
-    fetch("/api/fetch-stocks", options)
+    fetch(
+      `/api/fetch-stocks?firstFetch=${firstFetch}&nextTickerFetchUrl=${nextTickerFetchUrl}`,
+      options
+    )
       .then((res) => res.json())
       .then((res: TtickersResJson) => {
         setData(res);
