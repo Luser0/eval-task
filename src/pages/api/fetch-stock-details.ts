@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  let cache = await redis.get(req.body.ticker.toUpperCase());
+  let cache = await redis.get(req.body.ticker.toUpperCase() + "-details");
   if (cache) {
     res.json(cache);
     return;
