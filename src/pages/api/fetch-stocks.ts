@@ -37,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     if (cache) {
-      res.send(cache);
+      res.json(cache);
       return;
     }
     const stocksRes = await fetch(fetchUrl);
