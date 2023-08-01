@@ -1,5 +1,6 @@
 import { TprevDayInfo } from "@/types/TprevDayInfo";
 import { TtickerDetailsResults } from "@/types/TtickerDetailsResults";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -40,9 +41,9 @@ export default function stockPage() {
         ></img>
       ) : (
         <div className="container mx-auto">
-          <a href="/" className="text-4xl p-2 rounded-md">
+          <Link href="/" className="text-4xl p-2 rounded-md">
             {"<"}
-          </a>
+          </Link>
           <div className="flex gap-2">
             {tickerInfo?.branding.icon_url ? (
               <img
