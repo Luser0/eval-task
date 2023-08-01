@@ -62,7 +62,7 @@ export default function stockPage() {
               <p>{tickerInfo?.ticker}</p>
             </div>
           </div>
-          {prevDayInfo ? (
+          {prevDayInfo && (
             <div className="grid grid-cols-3">
               <div>
                 <p>Close</p>
@@ -85,7 +85,7 @@ export default function stockPage() {
                 <p>{prevDayInfo.v}</p>
               </div>
             </div>
-          ) : null}
+          )}
           {tickerInfo && <AboutStock tickerInfo={tickerInfo} />}
         </div>
       )}
