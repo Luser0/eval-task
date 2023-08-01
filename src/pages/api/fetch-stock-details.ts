@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const stockDetailsResJson: TtickersResJson = await stockDetailsRes.json();
       res.status(stockDetailsRes.status).json(stockDetailsResJson);
       await redis.set(
-        req.body.ticker,
+        req.body.ticker + "-details",
         JSON.stringify(stockDetailsResJson),
         "EX",
         60
