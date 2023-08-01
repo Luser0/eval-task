@@ -1,4 +1,3 @@
-import { TtickersResJson } from "@/types/TtickersResJson";
 import { useState, useEffect } from "react";
 
 function useFetchStocks() {
@@ -24,7 +23,7 @@ function useFetchStocks() {
       options
     )
       .then((res) => res.json())
-      .then((res: TtickersResJson) => {
+      .then((res) => {
         setData(res);
         setLoading(false);
         setFisrtFetch(false);

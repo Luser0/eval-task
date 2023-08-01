@@ -1,4 +1,4 @@
-export type TtickerInfo = {
+export type TtickerInfoResults = {
   ticker: string;
   name: string;
   market: "stocks" | "";

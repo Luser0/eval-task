@@ -1,4 +1,4 @@
-import { TprevDayInfo } from "@/types/TprevDayInfo";
+import { TprevDayInfoResults } from "@/types/TprevDayInfoResults";
 import { TtickerDetailsResults } from "@/types/TtickerDetailsResults";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ export default function stockPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tickerInfo, setTickerInfo] = useState<TtickerDetailsResults>();
-  const [prevDayInfo, setPrevDayInfo] = useState<TprevDayInfo>();
+  const [prevDayInfo, setPrevDayInfo] = useState<TprevDayInfoResults>();
 
   useEffect(() => {
     if (router.query.slug) {
@@ -24,7 +24,7 @@ export default function stockPage() {
           fetch("/api/fetch-prev-day", options)
             .then((prevDayRes) => prevDayRes.json())
             .then((prevDayRes) => {
-              setTickerInfo(detailsRes.results);
+              setTickerInfo(detailsRes);
               setPrevDayInfo(prevDayRes);
               setIsLoading(false);
             });
@@ -65,23 +65,23 @@ export default function stockPage() {
             <div className="grid grid-cols-3">
               <div>
                 <p>Close</p>
-                <p>{prevDayInfo?.results[0].c}</p>
+                <p>{prevDayInfo.c}</p>
               </div>
               <div>
                 <p>Open</p>
-                <p>{prevDayInfo?.results[0].o}</p>
+                <p>{prevDayInfo.o}</p>
               </div>
               <div>
                 <p>High</p>
-                <p>{prevDayInfo?.results[0].h}</p>
+                <p>{prevDayInfo.h}</p>
               </div>
               <div>
                 <p>Low</p>
-                <p>{prevDayInfo?.results[0].l}</p>
+                <p>{prevDayInfo.l}</p>
               </div>
               <div>
                 <p>Volume</p>
-                <p>{prevDayInfo?.results[0].v}</p>
+                <p>{prevDayInfo.v}</p>
               </div>
             </div>
           ) : null}
