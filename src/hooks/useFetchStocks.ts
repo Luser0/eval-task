@@ -37,7 +37,7 @@ function useFetchStocks() {
   }
   useEffect(() => {
     callback();
-  }, []);
+  });
 
   return { data, loading, error, callback };
 }
