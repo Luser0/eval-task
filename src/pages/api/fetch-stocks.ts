@@ -1,4 +1,3 @@
-import { TtickersResJson } from "@/types/TtickersResJson";
 import Redis from "ioredis";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -44,9 +43,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const stocksRes = await fetch(fetchUrl);
     try {
-      const stocksResJson: TtickersResJson = await stocksRes.json();
-      res.status(stocksRes.status).json(stocksResJson);
-      await redis.set(cacheToSet, JSON.stringify(stocksResJson), "EX", 60);
+      const stocksResJson = await stocksRes.json();
+      res.status(stocksRes.status).json(stocksResJson.results);
+      await redis.set(
+        cacheToSet,
+        JSON.stringify(stocksResJson.results),
+        "EX",
+        60
+      );
     } catch (error) {
       res.status(500).send("");
     }

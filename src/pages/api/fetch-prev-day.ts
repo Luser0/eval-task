@@ -1,4 +1,3 @@
-import { TtickersResJson } from "@/types/TtickersResJson";
 import Redis from "ioredis";
 
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -24,11 +23,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }`
     );
     try {
-      const stockPrevDayResJson: TtickersResJson = await stockPrevDayRes.json();
-      res.status(stockPrevDayRes.status).json(stockPrevDayResJson);
+      const stockPrevDayResJson = await stockPrevDayRes.json();
+      res.status(stockPrevDayRes.status).json(stockPrevDayResJson.results[0]);
       await redis.set(
         req.body.ticker + "-prev-day",
-        JSON.stringify(stockPrevDayResJson),
+        JSON.stringify(stockPrevDayResJson.results[0]),
         "EX",
         60
       );
