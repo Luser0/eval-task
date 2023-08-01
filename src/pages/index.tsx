@@ -69,7 +69,7 @@ export default function Home() {
       {tickers &&
         !rateLimitHit &&
         tickers.map((ticker: TtickerInfoResults, idx) => {
-          return <StockCard ticker={ticker} idx={idx} />;
+          return <StockCard ticker={ticker} key={idx} />;
         })}
 
       {error && <p>{error}</p>}
