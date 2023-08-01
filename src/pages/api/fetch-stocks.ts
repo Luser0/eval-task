@@ -18,7 +18,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     cache = await redis.get("firstFetch");
     cacheToSet = "firstFetch";
 
-    if (cache) cache = JSON.parse(cache);
+    if (cache) {
+      res.send(cache);
+      return;
+    }
   } else if (
     req.query.nextTickerFetchUrl &&
     typeof req.query.nextTickerFetchUrl === "string"
@@ -29,17 +32,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     cache = await redis.get("nextTickerFetchUrl");
     cacheToSet = req.query.nextTickerFetchUrl;
 
-    if (cache) cache = JSON.parse(cache);
+    if (cache) {
+      res.send(cache);
+      return;
+    }
   } else {
     res.status(500).json({ err: "invalid query" });
     return;
   }
 
   try {
-    if (cache) {
-      res.json(cache);
-      return;
-    }
     const stocksRes = await fetch(fetchUrl);
     try {
       const stocksResJson: TtickersResJson = await stocksRes.json();
