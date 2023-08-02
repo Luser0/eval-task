@@ -68,7 +68,7 @@ export default function Home() {
           setSearching(false);
         })
         .catch(() => {});
-    }, 2000);
+    }, 1500);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
