@@ -23,6 +23,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }`
     );
     const searchResJson = await searchRes.json();
+
+    if (searchResJson.results.length == 0) {
+      res.status(404).send("");
+    }
     res.json(searchResJson.results[0]);
 
     await redis.set(
