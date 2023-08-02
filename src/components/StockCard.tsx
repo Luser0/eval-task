@@ -8,8 +8,8 @@ export default function StockCard({ ticker }: { ticker: TtickerInfoResults }) {
       href={`/${ticker.ticker}`}
       className="p-4 border-2 border-black  bg-slate-600 rounded-md"
     >
-      <p>{ticker.name}</p>
-      <p>{ticker.ticker}</p>
+      <p id="asset-name">{ticker.name}</p>
+      <p id="asset-ticker">{ticker.ticker}</p>
     </Link>
   );
 }

@@ -60,8 +60,8 @@ export default function StockPage() {
               </div>
             )}
             <div className="flex flex-col">
-              <h1>{tickerInfo?.name}</h1>
-              <p>{tickerInfo?.ticker}</p>
+              <h1 id="asset-name">{tickerInfo?.name}</h1>
+              <p id="asset-ticker">{tickerInfo?.ticker}</p>
             </div>
           </div>
           {prevDayInfo && (
