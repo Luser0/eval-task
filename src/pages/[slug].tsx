@@ -14,12 +14,11 @@ export default function StockPage() {
   useEffect(() => {
     if (router.query.slug) {
       const options = {
-        method: "POST",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ticker: router.query.slug }),
       };
 
-      fetch("/api/fetch-stock-details", options)
+      fetch(`/api/fetch-stock-details?ticker=${router.query.slug}`, options)
         .then((detailsRes) => detailsRes.json())
         .then((detailsRes) => {
           fetch("/api/fetch-prev-day", options)
