@@ -1,3 +1,4 @@
+import { TtickerInfoResultsFull } from "@/types/TtickerInfoResultsFull";
 import { useState, useEffect } from "react";
 
 function useFetchStocks() {
@@ -23,8 +24,8 @@ function useFetchStocks() {
       options
     )
       .then((res) => res.json())
-      .then((res) => {
-        setData(res);
+      .then((res: TtickerInfoResultsFull) => {
+        setData(res.results);
         setLoading(false);
         setFisrtFetch(false);
         setNextTickerFetchUrl(res.next_url);

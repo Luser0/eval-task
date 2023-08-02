@@ -1,10 +1,10 @@
 import StockCard from "@/components/StockCard";
 import useFetchStocks from "@/hooks/useFetchStocks";
-import { TtickerInfoResults } from "@/types/TtickerInfoResults";
+import { TtickerInfoResultsFull } from "@/types/TtickerInfoResultsFull";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [tickers, setTickers] = useState<TtickerInfoResults[]>([]);
+  const [tickers, setTickers] = useState<TtickerInfoResultsFull[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(false);
   const [rateLimitHit, setRateLimitHit] = useState<boolean>(false);
 
@@ -14,7 +14,7 @@ export default function Home() {
     error,
     callback,
   }: {
-    data: TtickerInfoResults;
+    data: TtickerInfoResultsFull;
     loading: any;
     error: any;
     callback: any;
@@ -68,8 +68,8 @@ export default function Home() {
       {rateLimitHit && <p>Rate Limit Hit</p>}
       {tickers &&
         !rateLimitHit &&
-        tickers.map((ticker: TtickerInfoResults, idx) => {
-          return <StockCard ticker={ticker} key={idx} />;
+        tickers.map((ticker: TtickerInfoResultsFull, idx) => {
+          return <StockCard ticker={ticker.results} key={idx} />;
         })}
 
       {error && <p>{error}</p>}

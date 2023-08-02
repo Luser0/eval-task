@@ -44,10 +44,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const stocksRes = await fetch(fetchUrl);
     try {
       const stocksResJson = await stocksRes.json();
-      res.status(stocksRes.status).json(stocksResJson.results);
+      res.status(stocksRes.status).json({
+        results: stocksResJson.results,
+        next_url: stocksResJson.next_url,
+      });
       await redis.set(
         cacheToSet,
-        JSON.stringify(stocksResJson.results),
+        JSON.stringify({
+          results: stocksResJson.results,
+          next_url: stocksResJson.next_url,
+        }),
         "EX",
         60
       );
