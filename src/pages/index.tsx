@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [tickers, setTickers] = useState<TtickerInfoResults[]>([]);
   const [needToLoad, setNeedToLoad] = useState<boolean>(false);
-  const [rateLimitHit, setRateLimitHit] = useState<boolean>(false);
   const [searching, setSearching] = useState<boolean>(false);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -101,9 +100,7 @@ export default function Home() {
           ></img>
         ))}
 
-      {rateLimitHit && <p>Rate Limit Hit</p>}
       {tickers &&
-        !rateLimitHit &&
         !searchOpen &&
         tickers.map((ticker: TtickerInfoResults, idx) => {
           return <StockCard ticker={ticker} key={idx} />;
