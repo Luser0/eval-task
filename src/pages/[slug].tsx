@@ -21,7 +21,7 @@ export default function StockPage() {
       fetch(`/api/fetch-stock-details?ticker=${router.query.slug}`, options)
         .then((detailsRes) => detailsRes.json())
         .then((detailsRes) => {
-          fetch("/api/fetch-prev-day", options)
+          fetch(`/api/fetch-prev-day?ticker=${router.query.slug}`, options)
             .then((prevDayRes) => prevDayRes.json())
             .then((prevDayRes) => {
               setTickerInfo(detailsRes);
