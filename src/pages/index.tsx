@@ -62,7 +62,14 @@ export default function Home() {
       setSearching(true);
       setSearchOpen(true);
       fetch(`/api/search?ticker=${searchTerm}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status == 404) {
+            setSearchResults(undefined);
+            setSearching(false);
+            return;
+          }
+          return res.json();
+        })
         .then((res) => {
           setSearchResults(res);
           setSearching(false);
