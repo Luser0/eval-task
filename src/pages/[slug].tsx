@@ -46,9 +46,11 @@ export default function StockPage() {
             {"<"}
           </Link>
           <div className="flex gap-2">
-            {tickerInfo?.branding.icon_url ? (
+            {tickerInfo?.branding.icon_url || tickerInfo?.branding.logo_url ? (
               <img
-                src={`${tickerInfo?.branding.icon_url}?apiKey=${""}`}
+                src={`${
+                  tickerInfo?.branding.icon_url || tickerInfo?.branding.logo_url
+                }`}
                 className="row-span-2 h-32 aspect-square"
                 alt=""
               />
