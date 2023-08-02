@@ -3,13 +3,15 @@ import Redis from "ioredis";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (!req.body.ticker) {
+  const ticker = req.query.ticker;
+  if (!ticker || typeof ticker != "string") {
     res.status(400).send("");
     return;
   }
+
   const redis = new Redis(process.env.REDIS_URL as string);
 
-  let cache = await redis.get(req.body.ticker.toUpperCase() + "-details");
+  let cache = await redis.get(ticker.toUpperCase() + "-details");
   if (cache) {
     res.send(cache);
     return;
@@ -17,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const stockDetailsRes = await fetch(
-      `https://api.polygon.io/v3/reference/tickers/${req.body.ticker.toUpperCase()}?apiKey=${
+      `https://api.polygon.io/v3/reference/tickers/${ticker.toUpperCase()}?apiKey=${
         process.env.POLYGON_API_KEY
       }`
     );
@@ -25,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const stockDetailsResJson = await stockDetailsRes.json();
       res.status(stockDetailsRes.status).json(stockDetailsResJson.results);
       await redis.set(
-        req.body.ticker + "-details",
+        ticker + "-details",
         JSON.stringify(stockDetailsResJson.results),
         "EX",
         60
