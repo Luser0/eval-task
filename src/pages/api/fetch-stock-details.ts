@@ -3,12 +3,11 @@ import Redis from "ioredis";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const redis = new Redis(process.env.REDIS_URL as string);
-
   if (!req.body.ticker) {
     res.status(400).send("");
     return;
   }
+  const redis = new Redis(process.env.REDIS_URL as string);
 
   let cache = await redis.get(req.body.ticker.toUpperCase() + "-details");
   if (cache) {
